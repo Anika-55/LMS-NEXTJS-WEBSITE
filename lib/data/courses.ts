@@ -1,3 +1,5 @@
+export type CourseTier = "free" | "pro" | "ultra";
+
 export interface Lesson {
   id: string;
   slug: string;
