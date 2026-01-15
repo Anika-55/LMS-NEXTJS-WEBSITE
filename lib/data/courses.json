@@ -1,0 +1,129 @@
+[
+  {
+    "id": "course-1",
+    "slug": "nextjs-bootcamp",
+    "title": "Next.js 16 Bootcamp",
+    "description": "Build modern full-stack apps with Next.js App Router.",
+    "tier": "pro",
+    "thumbnail": "/images/nextjs.png",
+    "category": "Web Development",
+    "modules": [
+      {
+        "id": "module-1",
+        "title": "Introduction",
+        "lessons": [
+          { "id": "lesson-1", "slug": "what-is-nextjs", "title": "What is Next.js?", "videoId": "ZVnjOPwW4ZA", "hasVideo": true },
+          { "id": "lesson-2", "slug": "install-nextjs", "title": "Install Next.js", "videoId": "mTz0GXj8NN0", "hasVideo": true }
+        ]
+      },
+      {
+        "id": "module-2",
+        "title": "Routing",
+        "lessons": [
+          { "id": "lesson-3", "slug": "app-router", "title": "App Router", "videoId": "ZVnjOPwW4ZA", "hasVideo": true },
+          { "id": "lesson-4", "slug": "dynamic-routes", "title": "Dynamic Routes", "videoId": "mTz0GXj8NN0", "hasVideo": true }
+        ]
+      }
+    ]
+  },
+
+  {
+    "id": "course-2",
+    "slug": "react-fundamentals",
+    "title": "React Fundamentals",
+    "description": "Master React from zero to hero.",
+    "tier": "free",
+    "thumbnail": "/images/react.png",
+    "category": "Frontend",
+    "modules": [
+      {
+        "id": "module-1",
+        "title": "Core Concepts",
+        "lessons": [
+          { "id": "lesson-1", "slug": "what-is-react", "title": "What is React?", "videoId": "kUMe1FH4CHE", "hasVideo": true },
+          { "id": "lesson-2", "slug": "jsx", "title": "JSX Explained", "videoId": "pQN-pnXPaVg", "hasVideo": true }
+        ]
+      }
+    ]
+  },
+
+  {
+    "id": "course-3",
+    "slug": "javascript-mastery",
+    "title": "JavaScript Mastery",
+    "description": "Advanced JavaScript concepts with projects.",
+    "tier": "pro",
+    "thumbnail": "/images/js.png",
+    "category": "Programming",
+    "modules": [
+      {
+        "id": "module-1",
+        "title": "Advanced JS",
+        "lessons": [
+          { "id": "lesson-1", "slug": "closures", "title": "Closures Explained", "videoId": "kUMe1FH4CHE", "hasVideo": true },
+          { "id": "lesson-2", "slug": "async-await", "title": "Async Await", "videoId": "ZVnjOPwW4ZA", "hasVideo": true }
+        ]
+      }
+    ]
+  },
+
+  {
+    "id": "course-4",
+    "slug": "css-animation",
+    "title": "CSS Animation Masterclass",
+    "description": "Create stunning animations using pure CSS.",
+    "tier": "free",
+    "thumbnail": "/images/css.png",
+    "category": "Design",
+    "modules": [
+      {
+        "id": "module-1",
+        "title": "Animation Basics",
+        "lessons": [
+          { "id": "lesson-1", "slug": "keyframes", "title": "CSS Keyframes", "videoId": "pQN-pnXPaVg", "hasVideo": true },
+          { "id": "lesson-2", "slug": "transitions", "title": "Transitions", "videoId": "kUMe1FH4CHE", "hasVideo": true }
+        ]
+      }
+    ]
+  },
+
+  {
+    "id": "course-5",
+    "slug": "node-express-api",
+    "title": "Node & Express API",
+    "description": "Build REST APIs with Node.js and Express.",
+    "tier": "pro",
+    "thumbnail": "/images/node.png",
+    "category": "Backend",
+    "modules": [
+      {
+        "id": "module-1",
+        "title": "API Basics",
+        "lessons": [
+          { "id": "lesson-1", "slug": "express-setup", "title": "Express Setup", "videoId": "ZVnjOPwW4ZA", "hasVideo": true },
+          { "id": "lesson-2", "slug": "middleware", "title": "Middleware", "videoId": "mTz0GXj8NN0", "hasVideo": true }
+        ]
+      }
+    ]
+  },
+
+  {
+    "id": "course-6",
+    "slug": "database-with-postgresql",
+    "title": "PostgreSQL for Developers",
+    "description": "Master PostgreSQL with real world projects.",
+    "tier": "pro",
+    "thumbnail": "/images/postgres.png",
+    "category": "Database",
+    "modules": [
+      {
+        "id": "module-1",
+        "title": "Database Basics",
+        "lessons": [
+          { "id": "lesson-1", "slug": "what-is-postgres", "title": "What is PostgreSQL?", "videoId": "kUMe1FH4CHE", "hasVideo": true },
+          { "id": "lesson-2", "slug": "install-postgres", "title": "Install PostgreSQL", "videoId": "pQN-pnXPaVg", "hasVideo": true }
+        ]
+      }
+    ]
+  }
+]
