@@ -154,7 +154,12 @@
 
 import Link from "next/link";
 import { Play, CheckCircle2, Circle, BookOpen } from "lucide-react";
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
 
 export interface Lesson {
@@ -174,19 +179,24 @@ export interface Module {
 interface ModuleAccordionProps {
   modules: Module[] | null;
   userId?: string | null;
-  courseSlug: string;
+  courseSlug?: string; // ✅ optional now
 }
 
-export function ModuleAccordion({ modules, userId, courseSlug }: ModuleAccordionProps) {
-  if (!modules || modules.length === 0)
+export function ModuleAccordion({
+  modules,
+  userId,
+}: ModuleAccordionProps) {
+  if (!modules || modules.length === 0) {
     return (
       <div className="text-center py-12 text-zinc-500">
         <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-50" />
         <p>No modules available yet.</p>
       </div>
     );
+  }
 
-  const isLessonCompleted = (lesson: Lesson) => userId && lesson.completedBy?.includes(userId);
+  const isLessonCompleted = (lesson: Lesson) =>
+    Boolean(userId && lesson.completedBy?.includes(userId));
 
   const getModuleProgress = (module: Module) => {
     const lessons = module.lessons ?? [];
@@ -205,24 +215,37 @@ export function ModuleAccordion({ modules, userId, courseSlug }: ModuleAccordion
           const isComplete = total > 0 && completed === total;
 
           return (
-            <AccordionItem key={module.id} value={module.id} className="border border-zinc-800 rounded-xl overflow-hidden bg-zinc-900/50 data-[state=open]:bg-zinc-900/80">
+            <AccordionItem
+              key={module.id}
+              value={module.id}
+              className="border border-zinc-800 rounded-xl overflow-hidden bg-zinc-900/50 data-[state=open]:bg-zinc-900/80"
+            >
               <AccordionTrigger className="px-5 py-4 flex items-center gap-4 hover:no-underline hover:bg-zinc-800/50 transition-colors">
                 <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-violet-500/20 text-violet-400 text-sm font-bold shrink-0">
                   {index + 1}
                 </div>
+
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-white">{module.title}</h3>
                   <p className="text-sm text-zinc-500 mt-1">
                     {total} {total === 1 ? "lesson" : "lessons"}
                     {userId && total > 0 && (
-                      <span className="ml-2">• {completed}/{total} completed</span>
+                      <span className="ml-2">
+                        • {completed}/{total} completed
+                      </span>
                     )}
                   </p>
                 </div>
+
                 {userId && total > 0 && (
                   <div className="hidden sm:flex items-center gap-3 shrink-0 w-36">
-                    <Progress value={(completed / total) * 100} className="flex-1 h-2 bg-zinc-700 [&>div]:bg-emerald-500" />
-                    {isComplete && <CheckCircle2 className="w-5 h-5 text-emerald-400" />}
+                    <Progress
+                      value={(completed / total) * 100}
+                      className="flex-1 h-2 bg-zinc-700 [&>div]:bg-emerald-500"
+                    />
+                    {isComplete && (
+                      <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                    )}
                   </div>
                 )}
               </AccordionTrigger>
@@ -232,7 +255,7 @@ export function ModuleAccordion({ modules, userId, courseSlug }: ModuleAccordion
                   {module.lessons?.map((lesson) => (
                     <Link
                       key={lesson.id}
-                      href={`/course/${courseSlug}/lesson/${lesson.slug}`}
+                      href={`/lessons/${lesson.slug}`}
                       className="flex items-center gap-2.5 pl-2 pr-3 py-2 rounded-lg hover:bg-zinc-800/50 transition-colors group"
                     >
                       {isLessonCompleted(lesson) ? (
@@ -240,10 +263,20 @@ export function ModuleAccordion({ modules, userId, courseSlug }: ModuleAccordion
                       ) : (
                         <Circle className="w-4 h-4 text-zinc-600" />
                       )}
-                      <span className={`flex-1 text-sm ${isLessonCompleted(lesson) ? "text-zinc-400" : "text-zinc-300"} group-hover:text-white`}>
+
+                      <span
+                        className={`flex-1 text-sm ${
+                          isLessonCompleted(lesson)
+                            ? "text-zinc-400"
+                            : "text-zinc-300"
+                        } group-hover:text-white`}
+                      >
                         {lesson.title}
                       </span>
-                      {lesson.hasVideo && <Play className="w-4 h-4 text-zinc-500 group-hover:text-violet-400" />}
+
+                      {lesson.hasVideo && (
+                        <Play className="w-4 h-4 text-zinc-500 group-hover:text-violet-400" />
+                      )}
                     </Link>
                   ))}
                 </div>
