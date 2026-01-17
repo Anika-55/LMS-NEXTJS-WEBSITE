@@ -6,13 +6,15 @@ import { Input } from "@/components/ui/input";
 import { CourseCard } from "./CourseCard";
 import { TierFilterTabs, type TierFilter } from "./TierFilterTabs";
 import { useUserTier, hasTierAccess } from "@/lib/hooks/use-user-tier";
+import { Tier } from "@/lib/constants";
 
 export interface CourseListCourse {
   id: string;
   slug?: string;
   title: string;
   description?: string;
-  tier?: string;
+  tier?: Tier;
+
   thumbnail?: string;
   moduleCount?: number;
   lessonCount?: number;

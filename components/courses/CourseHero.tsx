@@ -4,12 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, BookOpen, Play, Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { TIER_STYLES } from "@/lib/constants";
+import { Tier, TIER_STYLES } from "@/lib/constants";
 
 export interface CourseHeroProps {
   title: string;
   description?: string | null;
-  tier?: string;
+  tier?: Tier;
+
   thumbnail?: string; // simple URL
   category?: string; // just a string now
   moduleCount?: number;
@@ -25,7 +26,7 @@ export function CourseHero({
   moduleCount,
   lessonCount,
 }: CourseHeroProps) {
-  const displayTier = tier ?? "free";
+  const displayTier: Tier = tier ?? "free";
   const styles = TIER_STYLES[displayTier];
 
   return (
