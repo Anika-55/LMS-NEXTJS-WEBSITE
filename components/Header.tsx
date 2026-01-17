@@ -27,7 +27,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const loggedOutLinks = [
-  { href: "#courses", label: "Courses" },
+  // { href: "/courses", label: "Courses" },
   { href: "/pricing", label: "Pricing" },
   { href: "#testimonials", label: "Reviews" },
 ];
@@ -40,7 +40,7 @@ export function Header() {
 
   const loggedInLinks = [
     { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/dashboard/courses", label: "My Courses", icon: BookOpen },
+    // { href: "/dashboard/courses", label: "My Courses", icon: BookOpen },
     // Show "Account" for Ultra users, "Upgrade" for others
     ...(isUltra
       ? [{ href: "/pricing", label: "Account", icon: Sparkles }]

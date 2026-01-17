@@ -15,50 +15,24 @@ import {
   Trophy,
   Sparkles,
   LayoutDashboard,
+  HelpCircle,
+  ChevronDown,
+  Github, Linkedin, Mail 
 } from "lucide-react";
 import { currentUser } from "@clerk/nextjs/server";
-
-const sampleCourses = [
-  {
-    slug: { current: "intro-to-js" },
-    title: "Introduction to JavaScript",
-    description: "Learn the basics of JS, the language of the web.",
-    tier: "free",
-    thumbnail: "/courses/js.png",
-    moduleCount: 5,
-    lessonCount: 20,
-  },
-  {
-    slug: { current: "react-fundamentals" },
-    title: "React Fundamentals",
-    description: "Build dynamic UIs with React.js.",
-    tier: "pro",
-    thumbnail: "/courses/react.png",
-    moduleCount: 8,
-    lessonCount: 32,
-  },
-  {
-    slug: { current: "fullstack-project" },
-    title: "Fullstack Project",
-    description: "Create a complete web app from scratch.",
-    tier: "ultra",
-    thumbnail: "/courses/fullstack.png",
-    moduleCount: 12,
-    lessonCount: 50,
-  },
-];
-
-
-
-const sampleStats = {
-  courseCount: sampleCourses.length,
-  lessonCount: sampleCourses.reduce((sum, c) => sum + c.lessonCount, 0),
-};
-
+import { courses } from "@/lib/data/courses";
 
 export default async function Home() {
-  // Fetch featured courses, stats, and check auth status
-  const isSignedIn = false
+  const isSignedIn = false;
+
+  // Calculate stats dynamically
+  const stats = {
+    courseCount: courses.length,
+    lessonCount: courses.reduce(
+      (sum, c) => sum + (c.modules?.reduce((lSum, m) => lSum + (m.lessons?.length ?? 0), 0) ?? 0),
+      0
+    ),
+  };
 
   return (
     <div className="min-h-screen bg-[#09090b] text-white overflow-hidden">
@@ -176,23 +150,23 @@ export default async function Home() {
             </div>
 
             {/* Stats */}
-              <div className="mt-16 grid grid-cols-3 gap-8 md:gap-16 animate-fade-in">
-          {[
-            { value: sampleStats.courseCount, label: "Courses", icon: BookOpen },
-            { value: sampleStats.lessonCount, label: "Lessons", icon: Play },
-            { value: "10K+", label: "Students", icon: Users },
-          ].map((stat) => (
-            <div key={stat.label} className="flex flex-col items-center">
-              <div className="flex items-center gap-2 mb-1">
-                <stat.icon className="w-4 h-4 text-violet-400" />
-                <span className="text-2xl md:text-3xl font-bold text-white">
-                  {stat.value}
-                </span>
-              </div>
-              <span className="text-sm text-zinc-500">{stat.label}</span>
+             <div className="mt-16 grid grid-cols-3 gap-8 md:gap-16 animate-fade-in">
+              {[
+                { value: stats.courseCount, label: "Courses", icon: BookOpen },
+                { value: stats.lessonCount, label: "Lessons", icon: Play },
+                { value: "10K+", label: "Students", icon: Users },
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col items-center">
+                  <div className="flex items-center gap-2 mb-1">
+                    <stat.icon className="w-4 h-4 text-violet-400" />
+                    <span className="text-2xl md:text-3xl font-bold text-white">
+                      {stat.value}
+                    </span>
+                  </div>
+                  <span className="text-sm text-zinc-500">{stat.label}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
           </div>
         </section>
 
@@ -297,23 +271,29 @@ export default async function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {sampleCourses.map((course) => (
+            {courses.map((course) => (
               <CourseCard
-                key={course.slug.current}
-                slug={course.slug.current} // pass string, not object!
+                key={course.id}
+                slug={course.slug}
                 title={course.title}
                 description={course.description}
                 tier={course.tier}
                 thumbnail={course.thumbnail}
-                moduleCount={course.moduleCount}
-                lessonCount={course.lessonCount}
+                moduleCount={course.modules.length}
+                lessonCount={course.modules.reduce(
+                  (sum, m) => sum + (m.lessons?.length ?? 0),
+                  0
+                )}
               />
             ))}
           </div>
 
           <div className="text-center mt-10">
             <Link href="/dashboard">
-              <Button variant="outline" className="border-zinc-700 bg-white/5 text-white hover:bg-white/10 hover:text-white">
+              <Button
+                variant="outline"
+                className="border-zinc-700 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+              >
                 View All Courses
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
@@ -387,6 +367,69 @@ export default async function Home() {
           </div>
         </section>
 
+        {/* FAQ Section */}
+<section className="px-6 lg:px-12 py-20 max-w-5xl mx-auto">
+  <div className="text-center mb-16">
+    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 mb-6">
+      <HelpCircle className="w-4 h-4 text-violet-400" />
+      <span className="text-sm text-violet-300">FAQs</span>
+    </div>
+
+    <h2 className="text-3xl md:text-5xl font-bold mb-4">
+      Frequently asked{" "}
+      <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+        questions
+      </span>
+    </h2>
+
+    <p className="text-zinc-400 text-lg max-w-2xl mx-auto">
+      Everything you need to know before starting your learning journey.
+    </p>
+  </div>
+
+  <div className="space-y-4">
+    {[
+      {
+        q: "Is Anika's Academy beginner friendly?",
+        a: "Yes! All courses are structured from absolute basics to advanced topics with hands-on projects."
+      },
+      {
+        q: "What is included in the Free plan?",
+        a: "Free users get access to core fundamentals, selected lessons, and community support."
+      },
+      {
+        q: "What makes Pro and Ultra different?",
+        a: "Pro unlocks advanced courses and certificates, while Ultra includes AI assistance, exclusive content, and 1-on-1 sessions."
+      },
+      {
+        q: "Can I learn at my own pace?",
+        a: "Absolutely. All lessons are self-paced and available anytime after enrollment."
+      },
+      {
+        q: "Do you provide certificates?",
+        a: "Yes, certificates are available for Pro and Ultra tier users upon course completion."
+      },
+    ].map((item, i) => (
+      <details
+        key={i}
+        className="group rounded-2xl bg-zinc-900/40 border border-zinc-800 px-6 py-5 transition-all duration-300"
+      >
+        <summary className="flex items-center justify-between cursor-pointer list-none">
+          <h3 className="text-base md:text-lg font-semibold text-white">
+            {item.q}
+          </h3>
+          <ChevronDown className="w-5 h-5 text-zinc-400 transition-transform duration-300 group-open:rotate-180" />
+        </summary>
+
+        <p className="mt-4 text-zinc-400 leading-relaxed">
+          {item.a}
+        </p>
+      </details>
+    ))}
+  </div>
+</section>
+
+
         {/* CTA Section */}
         <section className="px-6 lg:px-12 py-20 max-w-7xl mx-auto">
           <div className="relative rounded-3xl bg-gradient-to-br from-violet-600/20 via-fuchsia-600/10 to-cyan-600/20 border border-white/10 p-12 md:p-20 text-center overflow-hidden">
@@ -418,30 +461,68 @@ export default async function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="px-6 lg:px-12 py-12 border-t border-zinc-800/50 max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center">
-                <Code2 className="w-4 h-4 text-white" />
-              </div>
-              <span className="font-bold">Anika&apos;s Academy</span>
-            </div>
-            <div className="flex items-center gap-8 text-sm text-zinc-500">
-              <Link href="#" className="hover:text-white transition-colors">
-                Privacy
-              </Link>
-              <Link href="#" className="hover:text-white transition-colors">
-                Terms
-              </Link>
-              <Link href="#" className="hover:text-white transition-colors">
-                Contact
-              </Link>
-            </div>
-            <p className="text-sm text-zinc-600">
-              © 2024 Anika&apos;s Academy. All rights reserved.
-            </p>
-          </div>
-        </footer>
+       <footer className="px-6 lg:px-12 py-12 border-t border-zinc-800/50 max-w-7xl mx-auto">
+  <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+    {/* Logo */}
+    <div className="flex items-center gap-3">
+      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-600 flex items-center justify-center">
+        <Code2 className="w-4 h-4 text-white" />
+      </div>
+      <span className="font-bold">Anika&apos;s Academy</span>
+    </div>
+
+    {/* Links + Social */}
+    <div className="flex items-center gap-6 text-sm text-zinc-500">
+      <Link href="#" className="hover:text-white transition-colors">
+        Privacy
+      </Link>
+      <Link href="#" className="hover:text-white transition-colors">
+        Terms
+      </Link>
+      <Link href="#" className="hover:text-white transition-colors">
+        Contact
+      </Link>
+
+      {/* Divider */}
+      <span className="hidden md:block w-px h-4 bg-zinc-700" />
+
+      {/* Social Icons */}
+      <a
+        href="https://www.linkedin.com/in/anika-islam"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:text-white transition-colors"
+        aria-label="LinkedIn"
+      >
+        <Linkedin className="w-4 h-4" />
+      </a>
+
+      <a
+        href="https://github.com/Anika-55"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="hover:text-white transition-colors"
+        aria-label="GitHub"
+      >
+        <Github className="w-4 h-4" />
+      </a>
+
+      <a
+        href="myanikaislam1920@gmail.com"
+        className="hover:text-white transition-colors"
+        aria-label="Email"
+      >
+        <Mail className="w-4 h-4" />
+      </a>
+    </div>
+
+    {/* Copyright */}
+    <p className="text-sm text-zinc-600">
+      © 2024 Anika&apos;s Academy. All rights reserved.
+    </p>
+  </div>
+</footer>
+
       </main>
     </div>
   );

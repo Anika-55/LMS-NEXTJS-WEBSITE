@@ -33,7 +33,7 @@ export function CourseHero({
       {/* Back link */}
       <Link
         href="/dashboard"
-        className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors mb-8"
+        className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-gray-600 transition-colors mb-8"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to dashboard
@@ -54,7 +54,7 @@ export function CourseHero({
           ) : (
             <div className="text-7xl opacity-50">📚</div>
           )}
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 bg-black/5" />
         </div>
 
         {/* Course Info */}
@@ -76,12 +76,12 @@ export function CourseHero({
           </h1>
 
           {description && (
-            <p className="text-lg text-zinc-400 mb-6 leading-relaxed max-w-2xl">
+            <p className="text-lg text-zinc-600 mb-6 leading-relaxed max-w-2xl">
               {description}
             </p>
           )}
 
-          <div className="flex items-center gap-6 text-sm text-zinc-500">
+          <div className="flex items-center gap-6 text-sm text-zinc-600">
             <span className="flex items-center gap-2">
               <BookOpen className="w-4 h-4" />
               {moduleCount ?? 0} modules

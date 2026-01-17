@@ -33,7 +33,7 @@
     "title": "React Fundamentals",
     "description": "Master React from zero to hero.",
     "tier": "free",
-    "thumbnail": "/images/react.png",
+    "thumbnail": "/images/react.jpg",
     "category": "Frontend",
     "modules": [
       {
@@ -53,7 +53,7 @@
     "title": "JavaScript Mastery",
     "description": "Advanced JavaScript concepts with projects.",
     "tier": "pro",
-    "thumbnail": "/images/js.png",
+    "thumbnail": "/images/js.jpg",
     "category": "Programming",
     "modules": [
       {
@@ -73,7 +73,7 @@
     "title": "CSS Animation Masterclass",
     "description": "Create stunning animations using pure CSS.",
     "tier": "free",
-    "thumbnail": "/images/css.png",
+    "thumbnail": "/images/css.jpg",
     "category": "Design",
     "modules": [
       {
@@ -93,7 +93,7 @@
     "title": "Node & Express API",
     "description": "Build REST APIs with Node.js and Express.",
     "tier": "pro",
-    "thumbnail": "/images/node.png",
+    "thumbnail": "/images/node.jpg",
     "category": "Backend",
     "modules": [
       {

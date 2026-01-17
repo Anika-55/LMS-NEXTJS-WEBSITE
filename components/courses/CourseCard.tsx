@@ -7,12 +7,12 @@ import { TIER_STYLES } from "@/lib/constants";
 import { Progress } from "@/components/ui/progress";
 
 export interface CourseCardProps {
-  slug?: string;
+  slug: string;
   href?: string;
   title?: string;
   description?: string;
   tier?: string;
-  thumbnail?: string; // simple URL string
+  thumbnail?: string; 
   moduleCount?: number;
   lessonCount?: number;
   completedLessonCount?: number;
@@ -42,7 +42,7 @@ export function CourseCard({
   const progressPercent =
     totalLessons > 0 ? (completed / totalLessons) * 100 : 0;
 
-  const linkHref = href ?? `/course/${slug ?? ""}`;
+  const linkHref = href ?? `/courses/${slug}`;
 
   return (
     <Link href={linkHref} className="group block">
@@ -56,7 +56,14 @@ export function CourseCard({
               src={thumbnail}
               alt={title ?? "Course thumbnail"}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              placeholder="blur"
+              blurDataURL="/images/placeholder-low.jpg"
+              onError={(e) => {
+                e.currentTarget.srcset = "";
+                e.currentTarget.src = "/images/fallback.png";
+              }}
             />
           ) : (
             <div className="text-6xl opacity-50">📚</div>

@@ -1,5 +1,6 @@
 export type CourseTier = "free" | "pro" | "ultra";
 
+import coursesData from "./courses.json";
 export interface Lesson {
   id: string;
   slug: string;
@@ -191,7 +192,8 @@ const rawCourses: Course[] = [
    AUTO CALCULATED EXPORT
 ====================== */
 
-export const courses: Course[] = rawCourses.map(course => {
+
+export const courses: Course[] = coursesData.map(course => {
   const lessonCount = course.modules.reduce(
     (acc, module) => acc + module.lessons.length,
     0
