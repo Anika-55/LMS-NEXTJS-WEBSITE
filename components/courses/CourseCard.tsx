@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Lock, Play, Layers, CheckCircle2 } from "lucide-react";
-import { TIER_STYLES } from "@/lib/constants";
+import { Tier, TIER_STYLES } from "@/lib/constants";
 import { Progress } from "@/components/ui/progress";
 
 export interface CourseCardProps {
@@ -11,8 +11,8 @@ export interface CourseCardProps {
   href?: string;
   title?: string;
   description?: string;
-  tier?: string;
-  thumbnail?: string; 
+  tier?: Tier; // Use Tier type
+  thumbnail?: string;
   moduleCount?: number;
   lessonCount?: number;
   completedLessonCount?: number;
@@ -28,19 +28,21 @@ export function CourseCard({
   description,
   tier,
   thumbnail,
-  moduleCount,
-  lessonCount,
+  moduleCount = 0,
+  lessonCount = 0,
   completedLessonCount = 0,
   isCompleted = false,
   isLocked = false,
   showProgress = false,
 }: CourseCardProps) {
-  const displayTier = tier ?? "free";
+  // Safe tier handling
+  const displayTier: Tier = tier ?? "free";
   const styles = TIER_STYLES[displayTier];
-  const totalLessons = lessonCount ?? 0;
-  const completed = completedLessonCount ?? 0;
-  const progressPercent =
-    totalLessons > 0 ? (completed / totalLessons) * 100 : 0;
+
+  // Progress calculation
+  const totalLessons = lessonCount;
+  const completed = completedLessonCount;
+  const progressPercent = totalLessons > 0 ? (completed / totalLessons) * 100 : 0;
 
   const linkHref = href ?? `/courses/${slug}`;
 
@@ -68,9 +70,11 @@ export function CourseCard({
           ) : (
             <div className="text-6xl opacity-50">📚</div>
           )}
+
+          {/* Overlay for readability */}
           <div className="absolute inset-0 bg-black/20" />
 
-          {/* Tier badge or Completed badge */}
+          {/* Badge */}
           {isCompleted ? (
             <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/90 text-white">
               <CheckCircle2 className="w-3.5 h-3.5" />
@@ -106,19 +110,17 @@ export function CourseCard({
           </h3>
 
           {description && (
-            <p className="text-sm text-zinc-400 mb-4 line-clamp-2">
-              {description}
-            </p>
+            <p className="text-sm text-zinc-400 mb-4 line-clamp-2">{description}</p>
           )}
 
           <div className="flex items-center gap-4 text-sm text-zinc-500">
             <span className="flex items-center gap-1.5">
               <Layers className="w-4 h-4" />
-              {moduleCount ?? 0} modules
+              {moduleCount} modules
             </span>
             <span className="flex items-center gap-1.5">
               <Play className="w-4 h-4" />
-              {lessonCount ?? 0} lessons
+              {lessonCount} lessons
             </span>
           </div>
 
@@ -129,9 +131,7 @@ export function CourseCard({
                 <span className="text-zinc-400">
                   {completed}/{totalLessons} lessons
                 </span>
-                <span className="text-zinc-500">
-                  {Math.round(progressPercent)}%
-                </span>
+                <span className="text-zinc-500">{Math.round(progressPercent)}%</span>
               </div>
               <Progress
                 value={progressPercent}
