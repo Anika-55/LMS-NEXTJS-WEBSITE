@@ -5,14 +5,17 @@ import { CourseHero } from "./CourseHero";
 import { ModuleAccordion } from "./ModuleAccordion";
 import { CourseCompleteButton } from "./CourseCompleteButton";
 import { GatedFallback } from "./GatedFallback";
-import { useUserTier, hasTierAccess } from "@/lib/hooks/use-user-tier";
+
 import { Skeleton } from "../ui/skeleton";
+import { hasTierAccess, useUserTier } from "@/lib/hooks/use-user-tier";
+import { Tier } from "@/lib/constants";
 
 interface Lesson {
   id: string;
   completedBy?: string[]; // user IDs
   title?: string;
 }
+
 
 interface Module {
   id: string;
@@ -25,7 +28,7 @@ export interface Course {
   slug?: string;
   title: string;
   description?: string | null;
-  tier?: string;
+    tier?: Tier; 
   thumbnail?: string;
   category?: string;
   moduleCount?: number;
