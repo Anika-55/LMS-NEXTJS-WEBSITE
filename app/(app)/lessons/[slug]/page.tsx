@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { courses, type Lesson } from "@/lib/data/courses";
 import { LessonSidebar } from "@/components/lessons/LessonSidebar";
 import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
+
 
 interface LessonPageProps {
   params: { slug: string };
